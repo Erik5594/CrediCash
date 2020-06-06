@@ -1,15 +1,14 @@
 package br.com.dzs.credicash.resources;
 
-import br.com.dzs.credicash.dao.UsuariosDao;
 import br.com.dzs.credicash.domain.Usuario;
+import br.com.dzs.credicash.services.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.sql.Array;
-import java.util.Arrays;
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -24,15 +23,40 @@ import java.util.List;
 public class UsuarioResource {
 
     @Autowired
-    private UsuariosDao usuariosDao;
+    private UsuariosService usuariosService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Usuario> listar() {
-        return usuariosDao.findAll();
+    public ResponseEntity<List<Usuario>> listar() {
+        return ResponseEntity.status(HttpStatus.OK).body(usuariosService.listar());
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void salvar(@RequestBody Usuario usuario) {
-        usuariosDao.save(usuario);
+    public ResponseEntity salvar(@RequestBody Usuario usuario) {
+        usuario = usuariosService.salvar(usuario);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(usuario.getId()).toUri();
+
+        return  ResponseEntity.created(uri).build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity buscar(@PathVariable("id") Long id) {
+        Usuario usuario = null;
+        usuario = usuariosService.buscar(id);
+        return ResponseEntity.status(HttpStatus.OK).body(usuario);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deletar(@PathVariable("id") Long id){
+        usuariosService.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Void> atualizar(@RequestBody Usuario usuario, @PathVariable("id") Long id){
+        usuario.setId(id);
+        usuariosService.atualizar(usuario);
+        return ResponseEntity.noContent().build();
     }
 }
