@@ -42,8 +42,7 @@ public class UsuarioResource {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity buscar(@PathVariable("id") Long id) {
-        Usuario usuario = null;
-        usuario = usuariosService.buscar(id);
+        Usuario usuario = usuariosService.buscar(id);
         return ResponseEntity.status(HttpStatus.OK).body(usuario);
     }
 

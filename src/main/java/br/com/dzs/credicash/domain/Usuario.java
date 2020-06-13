@@ -23,10 +23,7 @@ public @Data class Usuario {
     private Long id;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String nome;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String cpfCnpj;
+    private String usuario;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String email;
