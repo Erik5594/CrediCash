@@ -15,4 +15,10 @@ public @Data class DetalhesErro {
     private Long timestamp;
     private String mensagemDesenvolvedor;
 
+    public DetalhesErro(String titulo, Long status, Long timestamp, String mensagemDesenvolvedor) {
+        this.titulo = titulo;
+        this.status = status;
+        this.timestamp = timestamp;
+        this.mensagemDesenvolvedor = mensagemDesenvolvedor;
+    }
 }

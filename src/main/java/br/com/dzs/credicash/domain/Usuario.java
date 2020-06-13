@@ -1,12 +1,10 @@
 package br.com.dzs.credicash.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * DZS
@@ -30,4 +28,9 @@ public @Data class Usuario {
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String senha;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pessoa_id")
+    @JsonIgnore
+    private Pessoa pessoa;
 }

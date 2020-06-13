@@ -35,7 +35,7 @@ public @Data class Pessoa{
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String cpfCgc;
 
-    @OneToOne()
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "pessoa")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Usuario usuario;
 
