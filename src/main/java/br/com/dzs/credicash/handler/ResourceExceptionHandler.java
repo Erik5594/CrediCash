@@ -32,7 +32,7 @@ public class ResourceExceptionHandler {
 
     @ExceptionHandler(PessoaNaoEncontradaException.class)
     public ResponseEntity<DetalhesErro> handlePessoaNaoEncontradaException
-            (UsuarioNaoEncontradoException e, HttpServletRequest request){
+            (PessoaNaoEncontradaException e, HttpServletRequest request){
         DetalhesErro detalhesErro = new DetalhesErro("A pessoa não pode ser encontrada.",
                 404l,
                 System.currentTimeMillis(),

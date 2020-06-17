@@ -36,7 +36,7 @@ public class PessoasService {
 
     public Pessoa buscar(Long id){
         Pessoa pessoa = pessoasDao.findOne(id);
-        if(pessoa== null){
+        if(pessoa == null){
             throw new PessoaNaoEncontradaException(PESSOA_NAO_ENCONTRADA);
         }
         return pessoa;

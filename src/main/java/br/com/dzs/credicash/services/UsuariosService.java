@@ -36,6 +36,10 @@ public class UsuariosService {
         return usuario;
     }
 
+    public Usuario buscarByEmailOrUsuario(String valor){
+        return usuariosDao.findUsuarioByEmailOrUsername(valor ,valor);
+    }
+
     public Usuario salvar(Usuario usuario){
         usuario.setId(null);
         return usuariosDao.save(usuario);

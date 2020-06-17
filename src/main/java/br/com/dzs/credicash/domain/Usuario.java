@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * DZS
@@ -21,13 +22,19 @@ public @Data class Usuario {
     private Long id;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String usuario;
+    private String username;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String email;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String senha;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "usuario_role", joinColumns = @JoinColumn(name="usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pessoa_id")

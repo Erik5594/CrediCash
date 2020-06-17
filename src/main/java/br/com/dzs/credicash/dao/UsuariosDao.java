@@ -10,4 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * Data Criacao: 06/06/2020 - 10:04
  */
 public interface UsuariosDao extends JpaRepository<Usuario, Long>{
+
+    Usuario findUsuarioByEmailOrUsername(String email, String username);
 }
